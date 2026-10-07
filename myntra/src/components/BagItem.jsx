@@ -1,23 +1,27 @@
 import { useSelector } from "react-redux";
 import Item from "./Item";
 import BagMessage from "./BagMessage";
+
 const BagItem = () => {
-  const bagItem = useSelector((store) => store.bag);
-  const item = useSelector((store) => store.item);
-  const finalItems = item.filter((item) => {
-    const itemIndex = bagItem.indexOf(item.id);
-    return itemIndex >= 0;
-  });
+  const bagIds = useSelector((store) => store.bag);
+  const items = useSelector((store) => store.item);
+
+  const bagProducts = items.filter((item) => bagIds.includes(item.id));
+
+  if (bagProducts.length === 0) {
+    return <BagMessage />;
+  }
+
   return (
-    <>
-      {finalItems.length == 0 ? (
-        <BagMessage />
-      ) : (
-        finalItems.map((item) => {
-          return <Item item={item} />;
-        })
-      )}
-    </>
+    <div className="bag-items-list">
+      <div className="bag-items-header-bar">
+        <h3>Shopping Bag ({bagProducts.length} items)</h3>
+      </div>
+      {bagProducts.map((product) => (
+        <Item key={product.id} item={product} />
+      ))}
+    </div>
   );
 };
+
 export default BagItem;

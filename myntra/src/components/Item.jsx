@@ -1,43 +1,69 @@
-import { FaTrash } from "react-icons/fa";
+import { FaTrashCan, FaRotateLeft } from "react-icons/fa6";
+import { HiOutlineTruck } from "react-icons/hi2";
 import { useDispatch } from "react-redux";
 import { bagAction } from "../store/bagSlice";
+import { useToast } from "./Toast";
+
 const Item = ({ item }) => {
   const dispatch = useDispatch();
+  const { showToast } = useToast();
+
   const handleRemoveFromBag = () => {
     dispatch(bagAction.removeFromBag(item.id));
+    showToast(`Removed "${item.item_name}" from bag`, "danger");
   };
+
   return (
-    <>
-      <div className="item">
-        <div className="item-left-part">
-          <img className="bag-item-img" src={item.image} />
+    <div className="bag-card-item">
+      <div className="bag-card-image-box">
+        <img className="bag-card-image" src={item.image} alt={item.item_name} />
+      </div>
+
+      <div className="bag-card-info">
+        <div className="bag-card-header">
+          <div>
+            <h4 className="bag-item-brand">{item.company}</h4>
+            <p className="bag-item-title">{item.item_name}</p>
+          </div>
+          <button
+            className="btn-remove-item"
+            onClick={handleRemoveFromBag}
+            title="Remove from bag"
+          >
+            <FaTrashCan />
+          </button>
         </div>
-        <div className="item-right-part">
-          <div className="company">{item.company}</div>
-          <div className="item-name">{item.item_name}</div>
-          <div className="price-container">
-            <span className="current-price">Rs {item.current_price}</span>
-            <span className="original-price">Rs {item.original_price}</span>
-            <span className="discount-percentage">
-              ({item.discount_percentage}% OFF)
+
+        <div className="bag-item-pricing">
+          <span className="current-price">₹{item.current_price}</span>
+          {item.original_price > item.current_price && (
+            <span className="original-price">₹{item.original_price}</span>
+          )}
+          {item.discount_percentage > 0 && (
+            <span className="discount-tag">({item.discount_percentage}% OFF)</span>
+          )}
+        </div>
+
+        <div className="bag-item-perks">
+          <div className="perk-row">
+            <FaRotateLeft className="perk-icon" />
+            <span>
+              <strong>{item.return_period || 14} days</strong> return available
             </span>
           </div>
-          <div className="return-period">
-            <span className="return-period-days">
-              {item.return_period} days
+          <div className="perk-row">
+            <HiOutlineTruck className="perk-icon" />
+            <span>
+              Delivery by{" "}
+              <strong className="delivery-highlight">
+                {item.delivery_date || "Within 3-4 days"}
+              </strong>
             </span>
-            return available
-          </div>
-          <div className="delivery-details">
-            Delivery by
-            <span className="delivery-details-days">{item.delivery_date}</span>
-          </div>
-          <div className="remove-from-cart" onClick={handleRemoveFromBag}>
-            <FaTrash />
           </div>
         </div>
       </div>
-    </>
+    </div>
   );
 };
+
 export default Item;
