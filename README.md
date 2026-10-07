@@ -7,7 +7,6 @@
   [![Redux Toolkit](https://img.shields.io/badge/Redux%20Toolkit-2.0.1-764ABC?style=flat-square&logo=redux&logoColor=white)](https://redux-toolkit.js.org/)
   [![React Router](https://img.shields.io/badge/React%20Router-v6.21-CA4245?style=flat-square&logo=react-router&logoColor=white)](https://reactrouter.com/)
   [![Vite](https://img.shields.io/badge/Vite-5.0.10-646CFF?style=flat-square&logo=vite&logoColor=white)](https://vitejs.dev/)
-  [![License](https://img.shields.io/badge/license-MIT-green?style=flat-square)](#license)
 </div>
 
 <br />
@@ -27,7 +26,6 @@
 - [Getting Started](#-getting-started)
 - [Available Scripts](#-available-scripts)
 - [Roadmap](#-future-roadmap)
-- [License](#-license)
 
 ---
 
@@ -263,9 +261,3 @@ In the `myntra/` frontend directory, you can run:
 - [ ] **User Authentication**: Firebase or JWT-based login/register flow.
 - [ ] **Address & Checkout Flow**: Multi-step checkout with address forms and payment gateway mock (Razorpay / Stripe).
 - [ ] **Dark Mode Toggle**: CSS custom property theming switchable via header.
-
----
-
-## 📄 License
-
-This project is open-source and available under the [MIT License](LICENSE).
